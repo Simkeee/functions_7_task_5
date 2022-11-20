@@ -207,3 +207,79 @@ function diamondArrays(x) {
 return "7.Array in output is: "+"[" + niz4 + "].";
 }
 console.log(diamondArrays(5));
+// 8.Create a function that returns the sum of missing numbers.
+// Examples: sumMissingNumbers([1, 3, 5, 7, 10]) ➞ 29  // 2 + 4 + 6 + 8 + 9
+// sumMissingNumbers([10, 7, 5, 3, 1]) ➞ 29
+// sumMissingNumbers([10, 20, 30, 40, 50, 60]) ➞ 1575
+
+function sumOfMissingNumb(array){
+   array.sort(function(a, b){return a - b});
+   var sum = 0;
+
+   for (let i = array[0]; i < array[array.length - 1]; i++) {
+      if(!array.includes(i)){
+         sum+=i;
+      }
+   }
+   return '8.Zadatak '+ sum;
+}
+console.log(sumOfMissingNumb([10, 20, 30, 40, 50, 60]))
+
+// 9.Create a function that returns true if smaller arrays can concatenate to form the target array and false otherwise. Arrays do not have to be sorted (see example #2). 
+// Arrays should concatenate to create the final array exactly (examples #3 and #4).
+// Examples: canConcatenate([[1, 2, 3, 4], [5, 6], [7]], [1, 2, 3, 4, 5, 6, 7]) ➞ true
+// canConcatenate([[2, 1, 3], [5, 4, 7, 6]], [7, 6, 5, 4, 3, 2, 1]) ➞ true
+// canConcatenate([[2, 1, 3], [5, 4, 7, 6, 7]], [1, 2, 3, 4, 5, 6, 7]) ➞ false // Duplicate 7s not found in target array.
+// canConcatenate([[2, 1, 3], [5, 4, 7]], [1, 2, 3, 4, 5, 6, 7]) ➞ false // Missing 6 from target array.
+function canConcatenate() {
+   'use strict'
+   var m = [];
+   var targetArray = [];
+   var h = 0;
+   var missing = [];
+   var repeat1 = [];
+   var message = false;
+   var check = 0;
+
+   //kreiranje jedistvenog niza i sortiranje
+   for (let i = 0; i < arguments.length; i++) {
+      for (let j = 0; j < arguments[i].length; j++) {
+         m = [...m, ...arguments[i][j]];
+      };
+   };
+   m.sort(function(a, b){return a - b});
+
+//provera da li ima duplikata ili nedostajucih elemenata
+   for (let y = m[0]; y <= m[m.length-1]; y++) {
+      targetArray [h]=y;
+      h++;
+      if(m.indexOf(y)==-1) { //provera da li neki element nedostaje
+         missing.push(y);
+         check = 1;
+      };
+      var brojac = 0;
+      for (let s = 0; s < m.length; s++) {//provera da li se neki element ponavlja
+         if(m[s]==y){
+            brojac++;        
+         };
+         if(brojac>1){
+            repeat1.push(y);
+            check = 2;
+            break;
+         };
+      };
+   };
+   //console.log(missing)
+   if(check == 1){
+      message = false + ' .Missing '+ missing +' from target array.'
+   };
+   if(check == 2){
+      message = false + ' .Duplicate '+ repeat1 +' not found in target array.'
+   };
+   if(check == 0){
+      message = true;
+   };
+return '9.'+ message +' '+ targetArray;
+};
+
+console.log(canConcatenate([[2, 1, 3], [5,4,7, 6]]))
